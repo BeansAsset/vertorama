@@ -1,0 +1,41 @@
+/* Selecting the area to capture: the frozen screen, dimmed, with one clean
+ * rectangle. Same palette as the result window. */
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+body {
+  font: 400 13px/1.4 Inter, "Noto Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  cursor: crosshair; user-select: none;
+}
+[hidden] { display: none !important; }
+
+#screen { position: fixed; left: 0; top: 0; display: block; pointer-events: none; }
+#dim { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.42); transition: opacity 120ms; }
+body.selecting #dim { opacity: 0; }
+
+#region {
+  position: fixed; border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 0 100vmax rgba(0, 0, 0, 0.42);
+  pointer-events: none;
+}
+#size {
+  position: absolute; right: 0; bottom: -26px;
+  padding: 2px 8px; border-radius: 6px; background: #18181a;
+  color: rgba(244, 242, 239, 0.75); font-size: 11.5px; font-weight: 550;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
+#hint {
+  position: fixed; top: 22px; left: 50%; transform: translateX(-50%);
+  font-size: 13px; font-weight: 550; color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.6);
+  pointer-events: none; transition: opacity 150ms; white-space: nowrap;
+}
+body.selecting #hint { opacity: 0; }
